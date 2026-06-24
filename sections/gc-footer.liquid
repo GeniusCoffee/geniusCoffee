@@ -15,10 +15,25 @@
           </ul>
         {% else %}
           <ul>
-            <li><a href="{{ routes.all_products_collection_url }}">All Roasts</a></li>
-            <li><a href="/pages/subscriptions">Subscriptions</a></li>
-            <li><a href="{{ routes.collections_url }}/equipment">Equipment</a></li>
-            <li><a href="/products/gift-card">Gift Cards</a></li>
+            <li><a href="{{ routes.all_products_collection_url }}">Roasts</a></li>
+            <li><a href="{{ routes.collections_url }}/apparel">Apparel</a></li>
+            <li><a href="{{ routes.collections_url }}/lifestyle">Lifestyle</a></li>
+          </ul>
+        {% endif %}
+      </div>
+      <div>
+        <h2><a href="/pages/help">{{ section.settings.help_heading }}</a></h2>
+        {% if section.settings.help_menu != blank %}
+          <ul>
+            {% for link in section.settings.help_menu.links %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <ul>
+            <li><a href="/pages/help#gc-returns">Returns</a></li>
+            <li><a href="/pages/help#gc-faq">FAQ</a></li>
+            <li><a href="/pages/contact">Contact</a></li>
           </ul>
         {% endif %}
       </div>
@@ -43,9 +58,9 @@
 
   .gc-footer__grid {
     display: grid;
-    grid-template-columns: minmax(0, 270px) auto;
+    grid-template-columns: minmax(0, 270px) auto auto;
     justify-content: space-between;
-    gap: 40px;
+    gap: 40px 64px;
   }
 
   .gc-footer__about {
@@ -102,6 +117,10 @@
     .gc-footer__grid {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    .gc-footer__brand {
+      grid-column: 1 / -1;
+    }
   }
 
   @media (max-width: 620px) {
@@ -110,7 +129,7 @@
     }
 
     .gc-footer__grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 40px;
     }
 
@@ -150,6 +169,8 @@
     { "type": "textarea", "id": "about", "label": "About copy", "default": "Small-batch specialty coffee, roasted in London. Direct trade. Always fresh." },
     { "type": "text", "id": "shop_heading", "label": "Shop heading", "default": "Shop" },
     { "type": "link_list", "id": "shop_menu", "label": "Shop menu" },
+    { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Help" },
+    { "type": "link_list", "id": "help_menu", "label": "Help menu" },
     { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2024 Genius Coffee Ltd. All rights reserved. Registered in England & Wales." }
   ],
   "presets": [

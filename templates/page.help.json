@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "main": {
+      "type": "gc-help",
+      "settings": {}
+    },
+    "footer": {
+      "type": "gc-footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "footer"
+  ]
+}
