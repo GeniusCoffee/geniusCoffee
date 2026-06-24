@@ -1,0 +1,14 @@
+{% doc %}
+Renders a decorative arrow icon for Genius Coffee buttons and links.
+@param {string} [direction] - Direction of the arrow, defaults to right.
+@example
+{% render 'gc-arrow-icon' %}
+{% enddoc %}
+
+{% liquid
+  assign arrow_direction = direction | default: 'right'
+%}
+
+<svg class="gc-arrow-icon gc-arrow-icon--{{ arrow_direction }}" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+  <path fill="currentColor" d="M8.8 3.2 13.6 8l-4.8 4.8-.9-.9 3.1-3.2H2.4V7.3H11L7.9 4.1l.9-.9Z"/>
+</svg>

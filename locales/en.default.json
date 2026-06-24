@@ -1,0 +1,45 @@
+{
+  "general": {
+    "navigation": {
+      "main": "Main navigation",
+      "roasts": "Roasts",
+      "shop": "Shop",
+      "order_now": "Order Now",
+      "open_menu": "Open menu",
+      "legal": "Legal navigation"
+    }
+  },
+  "newsletter": {
+    "email": "Email address",
+    "success": "Thanks for subscribing."
+  },
+  "collections": {
+    "shop": {
+      "categories": "Shop categories"
+    }
+  },
+  "products": {
+    "card": {
+      "process": "Process",
+      "weight": "Weight",
+      "elevation": "Elevation",
+      "notes": "Notes",
+      "add_to_bag": "Add to Bag"
+    },
+    "product": {
+      "back_to_shop": "Back to Shop",
+      "quantity": "Quantity",
+      "decrease_quantity": "Decrease quantity",
+      "increase_quantity": "Increase quantity",
+      "add_to_bag": "Add to Bag",
+      "sold_out": "Sold Out",
+      "product_details": "Product Details",
+      "origin": "Origin",
+      "process": "Process",
+      "elevation": "Elevation",
+      "tasting_notes": "Tasting Notes",
+      "roast_level": "Roast Level",
+      "weight": "Weight"
+    }
+  }
+}

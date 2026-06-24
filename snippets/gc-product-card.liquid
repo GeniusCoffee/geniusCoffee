@@ -1,0 +1,275 @@
+{% doc %}
+Renders a Genius Coffee product card.
+@param {product} [product] - Optional Shopify product.
+@param {string} [badge] - Card badge text.
+@param {string} [title] - Fallback product title.
+@param {string} [origin] - Fallback origin text.
+@param {string} [price] - Fallback price text.
+@param {string} [process] - Fallback process text.
+@param {string} [weight] - Fallback weight text.
+@param {string} [elevation] - Fallback elevation text.
+@param {string} [notes] - Fallback tasting notes.
+@param {boolean} [highlighted] - Uses the green highlighted card style.
+@param {boolean} [dark] - Uses the dark forest card style (takes precedence over highlighted).
+@param {boolean} [show_image] - Shows product image when available.
+@example
+{% render 'gc-product-card', product: product, badge: 'Bestseller' %}
+{% enddoc %}
+
+{% liquid
+  assign card_title = title
+  assign card_origin = origin
+  assign card_price = price
+  assign card_image = blank
+  assign selected_variant = blank
+
+  if product != blank
+    assign card_title = product.title
+    assign card_origin = product.vendor
+    assign card_price = product.price | money_without_trailing_zeros
+    assign card_image = product.featured_image
+    assign selected_variant = product.selected_or_first_available_variant
+  endif
+%}
+
+{%- comment -%} ponytail: dark wins over highlighted if both set {%- endcomment -%}
+<article class="gc-product-card{% if dark %} gc-product-card--dark{% elsif highlighted %} gc-product-card--highlighted{% endif %}">
+  <div class="gc-product-card__head">
+    {% if badge != blank %}
+      <span class="gc-product-card__badge">{{ badge }}</span>
+    {% endif %}
+    <div class="gc-product-card__title">
+      <h3>{{ card_title }}</h3>
+      {% if card_origin != blank %}
+        <p>{{ card_origin }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if show_image and card_image != blank %}
+    <a class="gc-product-card__image" href="{{ product.url }}">
+      {{ card_image | image_url: width: 720 | image_tag: loading: 'lazy', alt: card_title }}
+    </a>
+  {% else %}
+    <div class="gc-product-card__type">Coffee</div>
+  {% endif %}
+
+  <div class="gc-product-card__body">
+    <dl class="gc-product-card__details">
+      <div>
+        <dt>{{ 'products.card.process' | t }}</dt>
+        <dd>{{ process }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'products.card.weight' | t }}</dt>
+        <dd>{{ weight }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'products.card.elevation' | t }}</dt>
+        <dd>{{ elevation }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'products.card.notes' | t }}</dt>
+        <dd>{{ notes }}</dd>
+      </div>
+    </dl>
+
+    {% if product != blank and selected_variant != blank %}
+      {% form 'product', product %}
+        <input type="hidden" name="id" value="{{ selected_variant.id }}">
+        <button class="gc-product-card__button" type="submit">
+          {{ 'products.card.add_to_bag' | t }}
+          {% render 'gc-arrow-icon' %}
+          <span>{{ card_price }}</span>
+        </button>
+      {% endform %}
+    {% else %}
+      <a class="gc-product-card__button" href="{{ routes.collections_url }}">
+        {{ 'products.card.add_to_bag' | t }}
+        {% render 'gc-arrow-icon' %}
+      </a>
+    {% endif %}
+  </div>
+</article>
+
+{% stylesheet %}
+  .gc-product-card {
+    display: flex;
+    min-height: 520px;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    border: 1px solid var(--gc-border);
+    background: var(--gc-cream);
+    color: var(--gc-ink);
+  }
+
+  .gc-product-card--highlighted {
+    background: var(--gc-primary);
+    color: var(--gc-cream);
+  }
+
+  .gc-product-card__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .gc-product-card__badge {
+    display: inline-flex;
+    min-height: 28px;
+    align-items: center;
+    background: var(--gc-ink);
+    color: var(--gc-cream);
+    font-family: var(--gc-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.19em;
+    padding: 4px 12px;
+    text-transform: uppercase;
+  }
+
+  .gc-product-card--highlighted .gc-product-card__badge {
+    background: var(--gc-card);
+    color: var(--gc-primary);
+  }
+
+  .gc-product-card__title {
+    text-align: right;
+  }
+
+  .gc-product-card__title h3 {
+    margin: 0;
+    font-family: var(--gc-display);
+    font-size: 16px;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .gc-product-card__title p {
+    margin: 2px 0 0;
+    color: currentColor;
+    font-family: var(--gc-body);
+    font-size: 13px;
+    letter-spacing: 0.046em;
+    opacity: 0.7;
+    text-transform: uppercase;
+  }
+
+  .gc-product-card__type {
+    overflow: hidden;
+    padding: 0 16px;
+    color: var(--gc-forest);
+    font-family: var(--gc-condensed);
+    font-size: clamp(52px, 7vw, 96px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    opacity: 0.8;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .gc-product-card--highlighted .gc-product-card__type {
+    color: var(--gc-forest);
+  }
+
+  .gc-product-card--dark {
+    background: var(--gc-forest);
+    color: var(--gc-cream);
+  }
+
+  .gc-product-card--dark .gc-product-card__type {
+    color: var(--gc-cream);
+    opacity: 0.85;
+  }
+
+  .gc-product-card--dark .gc-product-card__badge {
+    background: var(--gc-cream);
+    color: var(--gc-ink);
+  }
+
+  .gc-product-card--dark .gc-product-card__button {
+    border-color: var(--gc-cream);
+    color: var(--gc-cream);
+  }
+
+  .gc-product-card__image {
+    display: block;
+    aspect-ratio: 1;
+    background: var(--gc-card);
+    overflow: hidden;
+  }
+
+  .gc-product-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gc-product-card__body {
+    padding: 24px;
+  }
+
+  .gc-product-card__details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 24px;
+    margin: 0 0 24px;
+  }
+
+  .gc-product-card__details div,
+  .gc-product-card__details dt,
+  .gc-product-card__details dd {
+    margin: 0;
+  }
+
+  .gc-product-card__details dt {
+    color: currentColor;
+    font-family: var(--gc-condensed);
+    font-size: 13px;
+    letter-spacing: 0.046em;
+    opacity: 0.5;
+    text-transform: uppercase;
+  }
+
+  .gc-product-card__details dd {
+    font-family: var(--gc-condensed);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.046em;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  .gc-product-card__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 40px;
+    border: 1px solid currentColor;
+    background: transparent;
+    color: currentColor;
+    cursor: pointer;
+    font-family: var(--gc-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    line-height: 1.33;
+    padding: 10px 20px;
+    text-transform: uppercase;
+  }
+
+  .gc-product-card--highlighted .gc-product-card__button {
+    border-color: var(--gc-cream);
+    color: var(--gc-cream);
+  }
+
+  .gc-product-card__button span {
+    display: none;
+  }
+{% endstylesheet %}

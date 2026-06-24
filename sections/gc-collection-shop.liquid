@@ -1,0 +1,350 @@
+<section class="gc-shop-hero">
+  <div class="gc-container">
+    <p class="gc-eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1 class="gc-display">{{ section.settings.heading }} <strong>{{ section.settings.highlight }}</strong></h1>
+    <p>{{ section.settings.copy }}</p>
+  </div>
+</section>
+
+<section class="gc-shop-tabs" aria-label="{{ 'collections.shop.categories' | t }}">
+  <div class="gc-container">
+    <a href="#coffee">{{ section.settings.coffee_tab }}</a>
+    <a href="#apparel">{{ section.settings.apparel_tab }}</a>
+    <a href="#lifestyle">{{ section.settings.lifestyle_tab }}</a>
+  </div>
+</section>
+
+{% comment %} ponytail: bucketed by product.type; rename the type strings here if your taxonomy differs {% endcomment %}
+{% assign coffee_products = collection.products | where: 'type', 'Coffee' %}
+{% render 'gc-shop-category', id: 'coffee', heading: section.settings.coffee_heading, copy: section.settings.coffee_copy, label: 'Coffee', products: coffee_products, demo: true %}
+
+{% assign apparel_products = collection.products | where: 'type', 'Apparel' %}
+{% render 'gc-shop-category', id: 'apparel', heading: section.settings.apparel_heading, copy: section.settings.apparel_copy, label: 'Apparel', products: apparel_products %}
+
+{% assign lifestyle_products = collection.products | where: 'type', 'Lifestyle' %}
+{% render 'gc-shop-category', id: 'lifestyle', heading: section.settings.lifestyle_heading, copy: section.settings.lifestyle_copy, label: 'Lifestyle', products: lifestyle_products %}
+
+<section class="gc-quiz-cta">
+  <div class="gc-container">
+    <div>
+      <p>{{ section.settings.quiz_eyebrow }}</p>
+      <h2>{{ section.settings.quiz_heading }}</h2>
+    </div>
+    <a class="gc-button gc-button--green" href="{{ section.settings.quiz_link | default: '/pages/quiz' }}">
+      {{ section.settings.quiz_button }}
+      {% render 'gc-arrow-icon' %}
+    </a>
+  </div>
+</section>
+
+{% stylesheet %}
+  .gc-shop-hero {
+    background: var(--gc-ink);
+    color: var(--gc-cream);
+    min-height: min(757px, 72svh);
+    display: flex;
+    align-items: flex-end;
+    padding: 144px 0 56px;
+  }
+
+  .gc-shop-hero .gc-display {
+    margin-top: 24px;
+    font-size: clamp(112px, 10.1vw, 220px);
+    line-height: 1;
+  }
+
+  .gc-shop-hero .gc-display strong {
+    display: block;
+  }
+
+  .gc-shop-hero p:not(.gc-eyebrow) {
+    max-width: 448px;
+    margin: 24px 0 0;
+    color: rgba(245, 240, 232, 0.44);
+    line-height: 1.625;
+  }
+
+  .gc-shop-tabs {
+    border-bottom: 1px solid var(--gc-border);
+    background: var(--gc-card);
+  }
+
+  .gc-shop-tabs .gc-container {
+    display: flex;
+    gap: 0;
+  }
+
+  .gc-shop-tabs a {
+    padding: 16px 32px 15px 0;
+    color: var(--gc-muted);
+    font-family: var(--gc-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .gc-shop-products {
+    background: var(--gc-card);
+    border-top: 1px solid rgba(13, 13, 11, 0.07);
+    padding: 0;
+  }
+
+  .gc-shop-products__layout {
+    display: grid;
+    grid-template-columns: 256px minmax(0, 1fr);
+    min-height: 496px;
+    align-items: stretch;
+  }
+
+  .gc-shop-products aside {
+    border-right: 1px solid var(--gc-border);
+    padding: 40px 40px 40px 0;
+  }
+
+  .gc-shop-products aside .gc-display {
+    font-size: 50px;
+    line-height: 1;
+  }
+
+  .gc-shop-products aside p {
+    color: var(--gc-muted);
+    font-family: var(--gc-display);
+    font-size: 13px;
+    line-height: 1.625;
+    letter-spacing: 0.154em;
+    text-transform: uppercase;
+  }
+
+  .gc-shop-products__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-content: start;
+    padding: 40px 0 40px 40px;
+  }
+
+  .gc-shop-tile {
+    min-height: 416px;
+    border-top: 1px solid rgba(13, 13, 11, 0.07);
+    border-right: 1px solid rgba(13, 13, 11, 0.07);
+    border-bottom: 1px solid rgba(13, 13, 11, 0.07);
+    background: var(--gc-card);
+  }
+
+  .gc-shop-tile:first-child {
+    border-left: 1px solid rgba(13, 13, 11, 0.07);
+  }
+
+  .gc-shop-tile__head {
+    display: flex;
+    min-height: 70px;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 1px solid rgba(13, 13, 11, 0.07);
+    padding: 16px;
+  }
+
+  .gc-shop-tile__head span {
+    display: grid;
+    gap: 2px;
+  }
+
+  .gc-shop-tile__head strong,
+  .gc-shop-tile__head b {
+    font-family: var(--gc-display);
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 0.037em;
+    line-height: 1.33;
+    text-transform: uppercase;
+  }
+
+  .gc-shop-tile__head small,
+  .gc-shop-tile p {
+    color: var(--gc-muted);
+    font-family: var(--gc-condensed);
+    font-size: 13px;
+    letter-spacing: 0.038em;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .gc-shop-tile__image {
+    display: flex;
+    height: 300px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--gc-cream);
+    color: rgba(28, 61, 48, 0.42);
+    font-family: var(--gc-condensed);
+    font-size: 72px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .gc-shop-tile__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gc-shop-tile p {
+    margin: 0;
+    padding: 12px 16px;
+  }
+
+  .gc-shop-products__empty {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 40px 0;
+    color: var(--gc-muted);
+    font-family: var(--gc-display);
+    font-size: 13px;
+    letter-spacing: 0.154em;
+    text-transform: uppercase;
+  }
+
+  .gc-quiz-cta {
+    background: var(--gc-forest);
+    color: var(--gc-cream);
+    padding: 56px 0;
+  }
+
+  .gc-quiz-cta .gc-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .gc-quiz-cta p,
+  .gc-quiz-cta h2 {
+    margin: 0;
+  }
+
+  .gc-quiz-cta p {
+    color: rgba(245, 240, 232, 0.58);
+    font-family: var(--gc-display);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .gc-quiz-cta h2 {
+    margin-top: 6px;
+    font-family: var(--gc-display);
+    font-size: 22px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 980px) {
+    .gc-shop-products__layout {
+      grid-template-columns: 1fr;
+    }
+
+    .gc-shop-products aside {
+      border-right: 0;
+      padding: 40px 0 32px;
+    }
+
+    .gc-shop-products__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .gc-shop-products__grid {
+      padding: 0 0 64px;
+    }
+
+    .gc-shop-tile:first-child {
+      border-left: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .gc-shop-hero {
+      min-height: 521px;
+      padding: 144px 0 56px;
+    }
+
+    .gc-shop-hero .gc-display {
+      font-size: 92px;
+      line-height: 0.98;
+    }
+
+    .gc-shop-hero .gc-eyebrow {
+      max-width: 330px;
+      white-space: normal;
+    }
+
+    .gc-shop-tabs .gc-container {
+      overflow-x: auto;
+    }
+
+    .gc-shop-products aside {
+      min-height: 167px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .gc-shop-products__grid {
+      gap: 0;
+    }
+
+    .gc-shop-tile {
+      min-height: 456px;
+      border-right: 0;
+      border-left: 0;
+    }
+
+    .gc-shop-tile__image {
+      height: 320px;
+    }
+
+    .gc-quiz-cta .gc-container {
+      display: grid;
+      justify-items: start;
+      gap: 32px;
+    }
+
+    .gc-quiz-cta {
+      padding: 56px 0;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Genius shop collection",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Hero eyebrow", "default": "Small-Batch - Roasted to Order - Free UK Shipping Over GBP 30" },
+    { "type": "text", "id": "heading", "label": "Hero heading", "default": "The" },
+    { "type": "text", "id": "highlight", "label": "Hero highlight", "default": "Shop." },
+    { "type": "textarea", "id": "copy", "label": "Hero copy", "default": "Every bag roasted fresh to order. Dispatched within 48 hours. Choose your roast, your grind, your cadence." },
+    { "type": "text", "id": "coffee_tab", "label": "Coffee tab", "default": "Coffee" },
+    { "type": "text", "id": "coffee_heading", "label": "Coffee heading", "default": "Coffee" },
+    { "type": "textarea", "id": "coffee_copy", "label": "Coffee copy", "default": "Single origin. Always fresh." },
+    { "type": "text", "id": "apparel_tab", "label": "Apparel tab", "default": "Apparel" },
+    { "type": "text", "id": "apparel_heading", "label": "Apparel heading", "default": "Apparel" },
+    { "type": "textarea", "id": "apparel_copy", "label": "Apparel copy", "default": "Wear it well." },
+    { "type": "text", "id": "lifestyle_tab", "label": "Lifestyle tab", "default": "Lifestyle" },
+    { "type": "text", "id": "lifestyle_heading", "label": "Lifestyle heading", "default": "Lifestyle" },
+    { "type": "textarea", "id": "lifestyle_copy", "label": "Lifestyle copy", "default": "The full ritual." },
+    { "type": "text", "id": "fallback_process", "label": "Fallback process", "default": "Washed" },
+    { "type": "text", "id": "fallback_weight", "label": "Fallback weight", "default": "250g" },
+    { "type": "text", "id": "fallback_elevation", "label": "Fallback elevation", "default": "1,600-1,900m" },
+    { "type": "text", "id": "quiz_eyebrow", "label": "Quiz eyebrow", "default": "Questions?" },
+    { "type": "text", "id": "quiz_heading", "label": "Quiz heading", "default": "Not sure which roast is right for you?" },
+    { "type": "text", "id": "quiz_button", "label": "Quiz button", "default": "Take the quiz" },
+    { "type": "url", "id": "quiz_link", "label": "Quiz link" }
+  ],
+  "presets": [
+    { "name": "Genius shop collection" }
+  ]
+}
+{% endschema %}

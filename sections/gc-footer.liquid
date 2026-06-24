@@ -1,0 +1,159 @@
+<footer class="gc-footer">
+  <div class="gc-container">
+    <div class="gc-footer__grid">
+      <div class="gc-footer__brand">
+        {% render 'genius-logo' %}
+        <p class="gc-footer__about">{{ section.settings.about }}</p>
+      </div>
+      <div>
+        <h2><a href="{{ routes.all_products_collection_url }}">{{ section.settings.shop_heading }}</a></h2>
+        {% if section.settings.shop_menu != blank %}
+          <ul>
+            {% for link in section.settings.shop_menu.links %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <ul>
+            <li><a href="{{ routes.all_products_collection_url }}">All Roasts</a></li>
+            <li><a href="/pages/subscriptions">Subscriptions</a></li>
+            <li><a href="{{ routes.collections_url }}/equipment">Equipment</a></li>
+            <li><a href="/products/gift-card">Gift Cards</a></li>
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+    <div class="gc-footer__bottom">
+      <p>{{ section.settings.copyright }}</p>
+      <nav aria-label="{{ 'general.navigation.legal' | t }}">
+        <a href="/policies/privacy-policy">Privacy Policy</a>
+        <a href="/policies/terms-of-service">Terms of Service</a>
+        <a href="/pages/cookie-settings">Cookie Settings</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+{% stylesheet %}
+  .gc-footer {
+    background: var(--gc-cream);
+    color: rgba(28, 61, 48, 0.5);
+    padding: 64px 0;
+  }
+
+  .gc-footer__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 270px) auto;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .gc-footer__about {
+    max-width: 270px;
+    margin: 24px 0 0;
+    font-size: 13px;
+    line-height: 1.625;
+  }
+
+  .gc-footer h2 {
+    margin: 0 0 20px;
+    color: rgba(28, 61, 48, 0.38);
+    font-family: var(--gc-display);
+    font-size: 13px;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+  }
+
+  .gc-footer ul {
+    display: flex;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+  }
+
+  .gc-footer a {
+    font-size: 14px;
+  }
+
+  .gc-footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 64px;
+    border-top: 1px solid var(--gc-border);
+    padding-top: 40px;
+    font-size: 13px;
+    color: rgba(28, 61, 48, 0.31);
+  }
+
+  .gc-footer__bottom p {
+    margin: 0;
+  }
+
+  .gc-footer__bottom nav {
+    display: flex;
+    gap: 24px;
+  }
+
+  @media (max-width: 900px) {
+    .gc-footer__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 620px) {
+    .gc-footer {
+      padding: 64px 0;
+    }
+
+    .gc-footer__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .gc-footer__brand {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .gc-footer__about {
+      margin: 0;
+    }
+
+    .gc-footer ul {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .gc-footer__bottom {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 64px;
+      padding-top: 40px;
+    }
+
+    .gc-footer__bottom nav {
+      flex-wrap: wrap;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Genius footer",
+  "settings": [
+    { "type": "textarea", "id": "about", "label": "About copy", "default": "Small-batch specialty coffee, roasted in London. Direct trade. Always fresh." },
+    { "type": "text", "id": "shop_heading", "label": "Shop heading", "default": "Shop" },
+    { "type": "link_list", "id": "shop_menu", "label": "Shop menu" },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2024 Genius Coffee Ltd. All rights reserved. Registered in England & Wales." }
+  ],
+  "presets": [
+    { "name": "Genius footer" }
+  ]
+}
+{% endschema %}

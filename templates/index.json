@@ -1,0 +1,117 @@
+{
+  "sections": {
+    "hero": {
+      "type": "gc-home-hero",
+      "settings": {}
+    },
+    "roasts": {
+      "type": "gc-featured-roasts",
+      "settings": {},
+      "blocks": {
+        "light-roast": {
+          "type": "roast",
+          "settings": {
+            "badge": "Signature",
+            "title": "Light Roast",
+            "origin": "Ethiopian Yirgacheffe",
+            "price": "GBP 14",
+            "process": "Washed",
+            "weight": "250g",
+            "elevation": "1,800-2,200m",
+            "notes": "Jasmine, Bergamot, Stone Fruit",
+            "highlighted": false
+          }
+        },
+        "medium-roast": {
+          "type": "roast",
+          "settings": {
+            "badge": "Bestseller",
+            "title": "Medium Roast",
+            "origin": "Colombian Huila",
+            "price": "GBP 14",
+            "process": "Natural",
+            "weight": "250g",
+            "elevation": "1,600-1,900m",
+            "notes": "Brown Sugar, Hazelnut, Red Apple",
+            "highlighted": true
+          }
+        },
+        "darker-roast": {
+          "type": "roast",
+          "settings": {
+            "badge": "New",
+            "title": "Darker Roast",
+            "origin": "Sumatra Mandheling",
+            "price": "GBP 14",
+            "process": "Wet-Hulled",
+            "weight": "250g",
+            "elevation": "1,200-1,500m",
+            "notes": "Dark Chocolate, Cedar, Molasses",
+            "highlighted": false,
+            "dark": true
+          }
+        }
+      },
+      "block_order": [
+        "light-roast",
+        "medium-roast",
+        "darker-roast"
+      ]
+    },
+    "story": {
+      "type": "gc-story",
+      "settings": {}
+    },
+    "process": {
+      "type": "gc-process",
+      "settings": {},
+      "blocks": {
+        "source": {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "heading": "Source",
+            "copy": "We build direct relationships with farmers across Ethiopia, Colombia, and Indonesia, paying above Fairtrade for exceptional lots."
+          }
+        },
+        "roast": {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "heading": "Roast",
+            "copy": "Every batch is roasted in small 15kg drums at our London roastery."
+          }
+        },
+        "ship": {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "heading": "Ship",
+            "copy": "Orders roasted fresh to order, dispatched within 48 hours."
+          }
+        }
+      },
+      "block_order": [
+        "source",
+        "roast",
+        "ship"
+      ]
+    },
+    "newsletter": {
+      "type": "gc-newsletter",
+      "settings": {}
+    },
+    "footer": {
+      "type": "gc-footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "roasts",
+    "story",
+    "process",
+    "newsletter",
+    "footer"
+  ]
+}

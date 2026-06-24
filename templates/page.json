@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "gc-main-page"
+    },
+    "footer": {
+      "type": "gc-footer"
+    }
+  },
+  "order": [
+    "main",
+    "footer"
+  ]
+}

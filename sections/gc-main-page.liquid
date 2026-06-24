@@ -1,0 +1,47 @@
+<section class="gc-main-page">
+  <div class="gc-container">
+    <p class="gc-eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1 class="gc-display">{{ page.title }}</h1>
+    <div class="gc-main-page__content">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .gc-main-page {
+    background: var(--gc-card);
+    padding: 112px 0;
+  }
+
+  .gc-main-page .gc-display {
+    max-width: 900px;
+    margin-top: 16px;
+    font-size: clamp(56px, 8vw, 120px);
+  }
+
+  .gc-main-page__content {
+    max-width: 760px;
+    margin-top: 48px;
+    color: var(--gc-muted);
+  }
+
+  .gc-main-page__content h2,
+  .gc-main-page__content h3 {
+    color: var(--gc-ink);
+    font-family: var(--gc-display);
+    text-transform: uppercase;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Genius page",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Genius Coffee" }
+  ],
+  "presets": [
+    { "name": "Genius page" }
+  ]
+}
+{% endschema %}

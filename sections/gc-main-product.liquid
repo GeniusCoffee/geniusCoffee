@@ -1,0 +1,378 @@
+{% liquid
+  assign selected_variant = product.selected_or_first_available_variant
+  assign product_image = product.featured_image
+%}
+
+<section class="gc-main-product">
+  <div class="gc-container">
+    <a class="gc-main-product__back" href="{{ routes.collections_url }}">
+      {% render 'gc-arrow-icon', direction: 'left' %}
+      {{ 'products.product.back_to_shop' | t }}
+    </a>
+    <div class="gc-main-product__grid">
+      <div class="gc-main-product__media">
+        {% if product_image != blank %}
+          {{ product_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: product.title }}
+        {% else %}
+          <div class="gc-main-product__placeholder"></div>
+        {% endif %}
+        {% if product.media.size > 1 %}
+          <div class="gc-main-product__thumbs">
+            {% for media in product.media limit: 4 %}
+              <button type="button" aria-label="{{ media.alt | default: product.title | escape }}">
+                {{ media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: media.alt }}
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="gc-main-product__details">
+        {% if section.settings.badge != blank %}
+          <p class="gc-main-product__badge">{{ section.settings.badge }}</p>
+        {% endif %}
+        <h1 class="gc-display">{{ product.title | default: section.settings.fallback_title }}</h1>
+        <p class="gc-main-product__origin">{{ product.vendor | default: section.settings.fallback_origin }}</p>
+        <div class="gc-main-product__description">
+          {% if product.description != blank %}
+            {{ product.description }}
+          {% else %}
+            {{ section.settings.fallback_description }}
+          {% endif %}
+        </div>
+        <p class="gc-main-product__price">{{ selected_variant.price | default: 1400 | money_without_trailing_zeros }}</p>
+
+        {% form 'product', product, class: 'gc-main-product__form' %}
+          <input type="hidden" name="id" value="{{ selected_variant.id }}">
+          <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+          <div class="gc-main-product__quantity">
+            <button class="gc-main-product__quantity-button" type="button" data-quantity-step="-1" aria-label="{{ 'products.product.decrease_quantity' | t }}">-</button>
+            <input id="Quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1">
+            <button class="gc-main-product__quantity-button" type="button" data-quantity-step="1" aria-label="{{ 'products.product.increase_quantity' | t }}">+</button>
+          </div>
+          <button class="gc-button gc-button--green" type="submit" {% unless selected_variant.available %}disabled{% endunless %}>
+            {% if selected_variant.available %}
+              {{ 'products.product.add_to_bag' | t }} &mdash; {{ selected_variant.price | money_without_trailing_zeros }}
+            {% else %}
+              {{ 'products.product.sold_out' | t }}
+            {% endif %}
+          </button>
+        {% endform %}
+
+        <div class="gc-main-product__meta">
+          <h2>{{ 'products.product.product_details' | t }}</h2>
+          <dl>
+            <div>
+              <dt>{{ 'products.product.origin' | t }}</dt>
+              <dd>{{ product.vendor | default: section.settings.fallback_origin }}</dd>
+            </div>
+            <div>
+              <dt>{{ 'products.product.process' | t }}</dt>
+              <dd>{{ section.settings.process }}</dd>
+            </div>
+            <div>
+              <dt>{{ 'products.product.elevation' | t }}</dt>
+              <dd>{{ section.settings.elevation }}</dd>
+            </div>
+            <div>
+              <dt>{{ 'products.product.tasting_notes' | t }}</dt>
+              <dd>{{ section.settings.notes }}</dd>
+            </div>
+            <div>
+              <dt>{{ 'products.product.roast_level' | t }}</dt>
+              <dd>{{ product.title | default: section.settings.fallback_title }}</dd>
+            </div>
+            <div>
+              <dt>{{ 'products.product.weight' | t }}</dt>
+              <dd>{{ section.settings.weight }}</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .gc-main-product {
+    background: var(--gc-card);
+    padding: 80px 0 64px;
+  }
+
+  .gc-main-product__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 32px;
+    color: var(--gc-muted);
+    font-family: var(--gc-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.046em;
+    text-transform: uppercase;
+  }
+
+  .gc-main-product__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .gc-main-product__media img,
+  .gc-main-product__placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--gc-cream);
+    object-fit: cover;
+  }
+
+  .gc-main-product__placeholder {
+    background: linear-gradient(135deg, var(--gc-cream), rgba(0, 120, 98, 0.12));
+  }
+
+  .gc-main-product__thumbs {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .gc-main-product__thumbs button {
+    width: 80px;
+    height: 80px;
+    border: 1px solid var(--gc-border);
+    background: transparent;
+    padding: 0;
+  }
+
+  .gc-main-product__thumbs button:first-child {
+    border: 2px solid var(--gc-primary);
+  }
+
+  .gc-main-product__thumbs img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gc-main-product__badge {
+    display: inline-flex;
+    margin: 0 0 24px;
+    background: var(--gc-cream);
+    color: var(--gc-primary);
+    font-family: var(--gc-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.19em;
+    padding: 4px 12px;
+    text-transform: uppercase;
+  }
+
+  .gc-main-product .gc-display {
+    font-size: clamp(48px, 4.7vw, 60px);
+    line-height: 1;
+  }
+
+  .gc-main-product__origin {
+    margin: 16px 0 32px;
+    color: var(--gc-muted);
+    font-family: var(--gc-condensed);
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .gc-main-product__description {
+    max-width: 620px;
+    color: var(--gc-muted);
+    line-height: 1.625;
+  }
+
+  .gc-main-product__price {
+    margin: 40px 0 32px;
+    border-bottom: 1px solid var(--gc-border);
+    padding-bottom: 32px;
+    font-family: var(--gc-display);
+    font-size: 40px;
+    font-weight: 900;
+  }
+
+  .gc-main-product__form {
+    display: grid;
+    gap: 0;
+    border-bottom: 1px solid var(--gc-border);
+    padding-bottom: 40px;
+  }
+
+  .gc-main-product__form label,
+  .gc-main-product__meta h2 {
+    font-family: var(--gc-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.046em;
+    text-transform: uppercase;
+  }
+
+  .gc-main-product__form label {
+    margin-bottom: 12px;
+  }
+
+  .gc-main-product__quantity {
+    display: inline-flex;
+    width: max-content;
+    align-items: center;
+    border: 1px solid rgba(13, 13, 11, 0.19);
+  }
+
+  .gc-main-product__quantity input {
+    width: 48px;
+    min-height: 40px;
+    border: 0;
+    background: transparent;
+    color: var(--gc-ink);
+    font-family: var(--gc-display);
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    appearance: textfield;
+  }
+
+  .gc-main-product__quantity input::-webkit-outer-spin-button,
+  .gc-main-product__quantity input::-webkit-inner-spin-button {
+    margin: 0;
+    appearance: none;
+  }
+
+  .gc-main-product__quantity-button {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background: transparent;
+    color: var(--gc-ink);
+    cursor: pointer;
+    font-family: var(--gc-display);
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .gc-main-product__form .gc-button {
+    width: 100%;
+    min-height: 52px;
+    margin-top: 40px;
+    padding: 16px 24px;
+  }
+
+  .gc-main-product__meta {
+    padding-top: 33px;
+  }
+
+  .gc-main-product__meta h2 {
+    margin: 0 0 24px;
+    letter-spacing: 0.23em;
+  }
+
+  .gc-main-product__meta dl,
+  .gc-main-product__meta div,
+  .gc-main-product__meta dt,
+  .gc-main-product__meta dd {
+    margin: 0;
+  }
+
+  .gc-main-product__meta dl {
+    display: grid;
+    gap: 16px;
+  }
+
+  .gc-main-product__meta div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .gc-main-product__meta dt {
+    color: var(--gc-muted);
+    font-family: var(--gc-condensed);
+    font-size: 13px;
+    letter-spacing: 0.046em;
+    text-transform: uppercase;
+  }
+
+  .gc-main-product__meta dd {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.43;
+  }
+
+  @media (max-width: 900px) {
+    .gc-main-product__grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .gc-main-product .gc-display {
+      font-size: 48px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .gc-main-product {
+      padding: 80px 0 64px;
+    }
+
+    .gc-main-product__back {
+      margin-bottom: 32px;
+    }
+
+    .gc-main-product__thumbs {
+      min-height: 96px;
+    }
+
+    .gc-main-product__details {
+      padding-top: 0;
+    }
+
+    .gc-main-product__meta div {
+      grid-template-columns: minmax(0, 157px) minmax(0, 1fr);
+    }
+
+    .gc-main-product__meta dd {
+      overflow-wrap: anywhere;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  document.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-quantity-step]');
+    if (!button) return;
+
+    const quantity = button.closest('.gc-main-product__quantity');
+    const input = quantity ? quantity.querySelector('input[name="quantity"]') : null;
+    if (!input) return;
+
+    const step = Number(button.dataset.quantityStep || 0);
+    const min = Number(input.getAttribute('min') || 1);
+    const nextValue = Math.max(min, Number(input.value || min) + step);
+    input.value = String(nextValue);
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Genius main product",
+  "settings": [
+    { "type": "text", "id": "badge", "label": "Badge", "default": "Bestseller" },
+    { "type": "text", "id": "fallback_title", "label": "Fallback title", "default": "Medium Roast" },
+    { "type": "text", "id": "fallback_origin", "label": "Fallback origin", "default": "Colombian Huila" },
+    { "type": "richtext", "id": "fallback_description", "label": "Fallback description", "default": "<p>Our medium roast brings you the finest Colombian Huila beans, carefully selected and roasted to perfection. Each batch is hand-roasted in small 15kg drums at our London roastery, ensuring exceptional quality and consistency.</p>" },
+    { "type": "text", "id": "process", "label": "Process", "default": "Natural" },
+    { "type": "text", "id": "elevation", "label": "Elevation", "default": "1,600-1,900m" },
+    { "type": "text", "id": "notes", "label": "Tasting notes", "default": "Brown Sugar, Hazelnut, Red Apple" },
+    { "type": "text", "id": "weight", "label": "Weight", "default": "250g" }
+  ],
+  "presets": [
+    { "name": "Genius main product" }
+  ]
+}
+{% endschema %}
