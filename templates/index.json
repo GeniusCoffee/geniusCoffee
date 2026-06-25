@@ -1,16 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "gc-home-hero",
-      "settings": {}
+      "settings": {
+        "image_opacity": 35,
+        "eyebrow": "Small-Batch · London Roastery · Est. 2024",
+        "heading": "Think",
+        "highlight": "Better.",
+        "heading_after": "Drink Better.",
+        "copy": "Genius Coffee sources and roasts exceptional single-origin beans. We believe great coffee starts with great thinking - about the crop, the roast, and the cup.",
+        "primary_label": "Shop All Roasts",
+        "primary_link": "",
+        "secondary_label": "Our Story",
+        "secondary_link": ""
+      }
     },
     "roasts": {
       "type": "gc-featured-roasts",
-      "settings": {},
       "blocks": {
         "light-roast": {
           "type": "roast",
           "settings": {
+            "product": "",
+            "highlighted": false,
+            "dark": false,
             "badge": "Signature",
             "title": "Light Roast",
             "origin": "Ethiopian Yirgacheffe",
@@ -18,13 +40,15 @@
             "process": "Washed",
             "weight": "250g",
             "elevation": "1,800-2,200m",
-            "notes": "Jasmine, Bergamot, Stone Fruit",
-            "highlighted": false
+            "notes": "Jasmine, Bergamot, Stone Fruit"
           }
         },
         "medium-roast": {
           "type": "roast",
           "settings": {
+            "product": "",
+            "highlighted": true,
+            "dark": false,
             "badge": "Bestseller",
             "title": "Medium Roast",
             "origin": "Colombian Huila",
@@ -32,13 +56,15 @@
             "process": "Natural",
             "weight": "250g",
             "elevation": "1,600-1,900m",
-            "notes": "Brown Sugar, Hazelnut, Red Apple",
-            "highlighted": true
+            "notes": "Brown Sugar, Hazelnut, Red Apple"
           }
         },
         "darker-roast": {
           "type": "roast",
           "settings": {
+            "product": "",
+            "highlighted": false,
+            "dark": true,
             "badge": "New",
             "title": "Darker Roast",
             "origin": "Sumatra Mandheling",
@@ -46,9 +72,7 @@
             "process": "Wet-Hulled",
             "weight": "250g",
             "elevation": "1,200-1,500m",
-            "notes": "Dark Chocolate, Cedar, Molasses",
-            "highlighted": false,
-            "dark": true
+            "notes": "Dark Chocolate, Cedar, Molasses"
           }
         }
       },
@@ -56,15 +80,29 @@
         "light-roast",
         "medium-roast",
         "darker-roast"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Current Offerings",
+        "heading": "The Roasts",
+        "link_label": "View All",
+        "link_url": "shopify://collections/all"
+      }
     },
     "story": {
       "type": "gc-story",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Our Story",
+        "heading": "Coffee roasted",
+        "highlight": "smarter.",
+        "copy": "<p>Genius Coffee was founded with one question: what if every decision in the supply chain was better? From sourcing to roasting to dispatch, we optimise for transparency, quality, and consistency.</p><p>We source exclusively from farms we visit. We roast in small batches and ship fresh to order.</p>",
+        "stat_value": "100%",
+        "stat_label": "Direct Trade",
+        "button_label": "Read More",
+        "button_link": ""
+      }
     },
     "process": {
       "type": "gc-process",
-      "settings": {},
       "blocks": {
         "source": {
           "type": "step",
@@ -95,15 +133,33 @@
         "source",
         "roast",
         "ship"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "How it works",
+        "heading": "From farm to cup."
+      }
     },
     "newsletter": {
       "type": "gc-newsletter",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Stay in the loop",
+        "heading": "Fresh roasts, first.",
+        "copy": "New lots, seasonal releases, and stories from origin delivered to your inbox.",
+        "placeholder": "your@email.com",
+        "button_label": "Subscribe",
+        "fineprint": "Unsubscribe anytime. We don't share your data."
+      }
     },
     "footer": {
       "type": "gc-footer",
-      "settings": {}
+      "settings": {
+        "about": "Big - batch specialty coffee, roasted in London. Direct trade. Always fresh.",
+        "shop_heading": "Shop",
+        "shop_menu": "",
+        "help_heading": "Help",
+        "help_menu": "",
+        "copyright": "© 2024 Genius Coffee Ltd. All rights reserved. Registered in England & Wales."
+      }
     }
   },
   "order": [
