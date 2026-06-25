@@ -1,7 +1,8 @@
 {% comment %}
   One shop category: aside heading/copy + product grid.
-  Params: id, heading, copy, label (image placeholder), products (pre-filtered list)
+  Params: id, heading, copy, label (image placeholder), match_type (case-insensitive product.type), collection
 {% endcomment %}
+{% assign type_match = match_type | downcase %}
 <section id="{{ id }}" class="gc-shop-products">
   <div class="gc-container gc-shop-products__layout">
     <aside>
@@ -9,7 +10,12 @@
       <p>{{ copy }}</p>
     </aside>
     <div class="gc-shop-products__grid">
-      {% for product in products limit: 12 %}
+      {% assign shown = 0 %}
+      {% for product in collection.products %}
+        {% assign ptype = product.type | downcase %}
+        {% if ptype != type_match %}{% continue %}{% endif %}
+        {% if shown >= 12 %}{% break %}{% endif %}
+        {% assign shown = shown | plus: 1 %}
         {% liquid
           assign selected_variant = product.selected_or_first_available_variant
           assign product_notes = product.description | strip_html | truncate: 42
@@ -24,45 +30,20 @@
           </a>
           <a class="gc-shop-tile__image" href="{{ product.url }}">
             {% if product.featured_image != blank %}
-              {{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', alt: product.title }}
+              {{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', alt: product.title, class: 'gc-shop-tile__image-primary' }}
+              {% if product.images.size > 1 %}
+                {{ product.images[1] | image_url: width: 720 | image_tag: loading: 'lazy', alt: product.title, class: 'gc-shop-tile__image-secondary' }}
+              {% endif %}
             {% else %}
               <span>{{ label }}</span>
             {% endif %}
           </a>
           <p>{{ product_notes }}</p>
         </article>
-      {% else %}
-        {% if demo %}
-          {% comment %} ponytail: sample tiles for the pre-launch client preview; delete this block once real products exist {% endcomment %}
-          {% assign demo_url = collection.products.first.url | default: routes.collections_url %}
-          <article class="gc-shop-tile">
-            <a class="gc-shop-tile__head" href="{{ demo_url }}">
-              <span><strong>Light Roast</strong><small>Ethiopian Yirgacheffe</small></span>
-              <b>£14</b>
-            </a>
-            <a class="gc-shop-tile__image" href="{{ demo_url }}"><span>{{ label }}</span></a>
-            <p>Jasmine · Bergamot · Stone Fruit</p>
-          </article>
-          <article class="gc-shop-tile">
-            <a class="gc-shop-tile__head" href="{{ demo_url }}">
-              <span><strong>Medium Roast</strong><small>Colombian Huila</small></span>
-              <b>£14</b>
-            </a>
-            <a class="gc-shop-tile__image" href="{{ demo_url }}"><span>{{ label }}</span></a>
-            <p>Brown Sugar · Hazelnut · Red Apple</p>
-          </article>
-          <article class="gc-shop-tile">
-            <a class="gc-shop-tile__head" href="{{ demo_url }}">
-              <span><strong>Darker Roast</strong><small>Sumatra Mandheling</small></span>
-              <b>£14</b>
-            </a>
-            <a class="gc-shop-tile__image" href="{{ demo_url }}"><span>{{ label }}</span></a>
-            <p>Dark Chocolate · Cedar · Molasses</p>
-          </article>
-        {% else %}
-          <p class="gc-shop-products__empty">Coming soon.</p>
-        {% endif %}
       {% endfor %}
+      {% if shown == 0 %}
+        <p class="gc-shop-products__empty">Coming soon.</p>
+      {% endif %}
     </div>
   </div>
 </section>

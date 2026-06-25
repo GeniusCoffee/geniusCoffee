@@ -5,21 +5,21 @@
 
 <section class="gc-main-product">
   <div class="gc-container">
-    <a class="gc-main-product__back" href="{{ routes.collections_url }}">
+    <a class="gc-main-product__back" href="{{ routes.all_products_collection_url }}">
       {% render 'gc-arrow-icon', direction: 'left' %}
       {{ 'products.product.back_to_shop' | t }}
     </a>
     <div class="gc-main-product__grid">
       <div class="gc-main-product__media">
         {% if product_image != blank %}
-          {{ product_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: product.title }}
+          {{ product_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: product.title, class: 'gc-main-product__main-image' }}
         {% else %}
           <div class="gc-main-product__placeholder"></div>
         {% endif %}
         {% if product.media.size > 1 %}
           <div class="gc-main-product__thumbs">
             {% for media in product.media limit: 4 %}
-              <button type="button" aria-label="{{ media.alt | default: product.title | escape }}">
+              <button type="button" class="gc-main-product__thumb{% if forloop.first %} is-active{% endif %}" data-image-url="{{ media.preview_image | image_url: width: 1200 }}" aria-label="{{ media.alt | default: product.title | escape }}">
                 {{ media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: media.alt }}
               </button>
             {% endfor %}
@@ -28,8 +28,9 @@
       </div>
 
       <div class="gc-main-product__details">
-        {% if section.settings.badge != blank %}
-          <p class="gc-main-product__badge">{{ section.settings.badge }}</p>
+        {% assign product_badge = product.tags.first | default: section.settings.badge %}
+        {% if product_badge != blank %}
+          <p class="gc-main-product__badge">{{ product_badge }}</p>
         {% endif %}
         <h1 class="gc-display">{{ product.title | default: section.settings.fallback_title }}</h1>
         <p class="gc-main-product__origin">{{ product.vendor | default: section.settings.fallback_origin }}</p>
@@ -61,30 +62,31 @@
 
         <div class="gc-main-product__meta">
           <h2>{{ 'products.product.product_details' | t }}</h2>
+          {%- comment -%} ponytail: metafield overrides section setting; section setting stays as fallback {%- endcomment -%}
           <dl>
             <div>
               <dt>{{ 'products.product.origin' | t }}</dt>
-              <dd>{{ product.vendor | default: section.settings.fallback_origin }}</dd>
+              <dd>{{ product.metafields.custom.origin.value | default: product.vendor | default: section.settings.fallback_origin }}</dd>
             </div>
             <div>
               <dt>{{ 'products.product.process' | t }}</dt>
-              <dd>{{ section.settings.process }}</dd>
+              <dd>{{ product.metafields.custom.process.value | default: section.settings.process }}</dd>
             </div>
             <div>
               <dt>{{ 'products.product.elevation' | t }}</dt>
-              <dd>{{ section.settings.elevation }}</dd>
+              <dd>{{ product.metafields.custom.elevation.value | default: section.settings.elevation }}</dd>
             </div>
             <div>
               <dt>{{ 'products.product.tasting_notes' | t }}</dt>
-              <dd>{{ section.settings.notes }}</dd>
+              <dd>{{ product.metafields.custom.tasting_notes.value | default: section.settings.notes }}</dd>
             </div>
             <div>
               <dt>{{ 'products.product.roast_level' | t }}</dt>
-              <dd>{{ product.title | default: section.settings.fallback_title }}</dd>
+              <dd>{{ product.metafields.custom.roast_level.value | default: product.title | default: section.settings.fallback_title }}</dd>
             </div>
             <div>
               <dt>{{ 'products.product.weight' | t }}</dt>
-              <dd>{{ section.settings.weight }}</dd>
+              <dd>{{ product.metafields.custom.weight.value | default: section.settings.weight }}</dd>
             </div>
           </dl>
         </div>
@@ -145,8 +147,12 @@
     padding: 0;
   }
 
-  .gc-main-product__thumbs button:first-child {
+  .gc-main-product__thumbs button.is-active {
     border: 2px solid var(--gc-primary);
+  }
+
+  .gc-main-product__thumbs button {
+    cursor: pointer;
   }
 
   .gc-main-product__thumbs img {
@@ -343,6 +349,19 @@
 
 {% javascript %}
   document.addEventListener('click', (event) => {
+    const thumb = event.target.closest('.gc-main-product__thumb');
+    if (thumb && thumb.dataset.imageUrl) {
+      const media = thumb.closest('.gc-main-product__media');
+      const mainImage = media ? media.querySelector('.gc-main-product__main-image') : null;
+      if (mainImage) {
+        mainImage.src = thumb.dataset.imageUrl;
+        mainImage.removeAttribute('srcset');
+        media.querySelectorAll('.gc-main-product__thumb').forEach((t) => t.classList.remove('is-active'));
+        thumb.classList.add('is-active');
+      }
+      return;
+    }
+
     const button = event.target.closest('[data-quantity-step]');
     if (!button) return;
 

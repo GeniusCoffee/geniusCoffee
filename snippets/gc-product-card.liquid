@@ -48,7 +48,10 @@ Renders a Genius Coffee product card.
 
   {% if show_image and card_image != blank %}
     <a class="gc-product-card__image" href="{{ product.url }}">
-      {{ card_image | image_url: width: 720 | image_tag: loading: 'lazy', alt: card_title }}
+      {{ card_image | image_url: width: 720 | image_tag: loading: 'lazy', alt: card_title, class: 'gc-product-card__image-primary' }}
+      {% if product.images.size > 1 %}
+        {{ product.images[1] | image_url: width: 720 | image_tag: loading: 'lazy', alt: card_title, class: 'gc-product-card__image-secondary' }}
+      {% endif %}
     </a>
   {% else %}
     <div class="gc-product-card__type">Coffee</div>
@@ -198,6 +201,7 @@ Renders a Genius Coffee product card.
   }
 
   .gc-product-card__image {
+    position: relative;
     display: block;
     aspect-ratio: 1;
     background: var(--gc-card);
@@ -208,6 +212,17 @@ Renders a Genius Coffee product card.
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .gc-product-card__image-secondary {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .gc-product-card__image:hover .gc-product-card__image-secondary {
+    opacity: 1;
   }
 
   .gc-product-card__body {
