@@ -5,7 +5,7 @@
 
 <section class="gc-main-product">
   <div class="gc-container">
-    <a class="gc-main-product__back" href="{{ routes.collections_url }}">
+    <a class="gc-main-product__back" href="{{ routes.all_products_collection_url }}">
       {% render 'gc-arrow-icon', direction: 'left' %}
       {{ 'products.product.back_to_shop' | t }}
     </a>
@@ -28,8 +28,9 @@
       </div>
 
       <div class="gc-main-product__details">
-        {% if section.settings.badge != blank %}
-          <p class="gc-main-product__badge">{{ section.settings.badge }}</p>
+        {% assign product_badge = product.tags.first | default: section.settings.badge %}
+        {% if product_badge != blank %}
+          <p class="gc-main-product__badge">{{ product_badge }}</p>
         {% endif %}
         <h1 class="gc-display">{{ product.title | default: section.settings.fallback_title }}</h1>
         <p class="gc-main-product__origin">{{ product.vendor | default: section.settings.fallback_origin }}</p>
@@ -61,30 +62,31 @@
 
         <div class="gc-main-product__meta">
           <h2>{{ 'products.product.product_details' | t }}</h2>
+          {%- comment -%} ponytail: metafield overrides section setting; section setting stays as fallback {%- endcomment -%}
           <dl>
             <div>
               <dt>{{ 'products.product.origin' | t }}</dt>
-              <dd>{{ product.vendor | default: section.settings.fallback_origin }}</dd>
+              <dd>{{ product.metafields.custom.origin.value | default: product.vendor | default: section.settings.fallback_origin }}</dd>
             </div>
             <div>
               <dt>{{ 'products.product.process' | t }}</dt>
-              <dd>{{ section.settings.process }}</dd>
+              <dd>{{ product.metafields.custom.process.value | default: section.settings.process }}</dd>
             </div>
             <div>
               <dt>{{ 'products.product.elevation' | t }}</dt>
-              <dd>{{ section.settings.elevation }}</dd>
+              <dd>{{ product.metafields.custom.elevation.value | default: section.settings.elevation }}</dd>
             </div>
             <div>
               <dt>{{ 'products.product.tasting_notes' | t }}</dt>
-              <dd>{{ section.settings.notes }}</dd>
+              <dd>{{ product.metafields.custom.tasting_notes.value | default: section.settings.notes }}</dd>
             </div>
             <div>
               <dt>{{ 'products.product.roast_level' | t }}</dt>
-              <dd>{{ product.title | default: section.settings.fallback_title }}</dd>
+              <dd>{{ product.metafields.custom.roast_level.value | default: product.title | default: section.settings.fallback_title }}</dd>
             </div>
             <div>
               <dt>{{ 'products.product.weight' | t }}</dt>
-              <dd>{{ section.settings.weight }}</dd>
+              <dd>{{ product.metafields.custom.weight.value | default: section.settings.weight }}</dd>
             </div>
           </dl>
         </div>
