@@ -30,7 +30,10 @@
           </a>
           <a class="gc-shop-tile__image" href="{{ product.url }}">
             {% if product.featured_image != blank %}
-              {{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', alt: product.title }}
+              {{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', alt: product.title, class: 'gc-shop-tile__image-primary' }}
+              {% if product.images.size > 1 %}
+                {{ product.images[1] | image_url: width: 720 | image_tag: loading: 'lazy', alt: product.title, class: 'gc-shop-tile__image-secondary' }}
+              {% endif %}
             {% else %}
               <span>{{ label }}</span>
             {% endif %}

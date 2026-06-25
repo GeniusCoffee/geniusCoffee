@@ -168,6 +168,7 @@
   }
 
   .gc-shop-tile__image {
+    position: relative;
     display: flex;
     height: 300px;
     align-items: center;
@@ -187,6 +188,17 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .gc-shop-tile__image-secondary {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .gc-shop-tile__image:hover .gc-shop-tile__image-secondary {
+    opacity: 1;
   }
 
   .gc-shop-tile p {
