@@ -12,14 +12,14 @@
     <div class="gc-main-product__grid">
       <div class="gc-main-product__media">
         {% if product_image != blank %}
-          {{ product_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: product.title }}
+          {{ product_image | image_url: width: 1200 | image_tag: loading: 'eager', alt: product.title, class: 'gc-main-product__main-image' }}
         {% else %}
           <div class="gc-main-product__placeholder"></div>
         {% endif %}
         {% if product.media.size > 1 %}
           <div class="gc-main-product__thumbs">
             {% for media in product.media limit: 4 %}
-              <button type="button" aria-label="{{ media.alt | default: product.title | escape }}">
+              <button type="button" class="gc-main-product__thumb{% if forloop.first %} is-active{% endif %}" data-image-url="{{ media.preview_image | image_url: width: 1200 }}" aria-label="{{ media.alt | default: product.title | escape }}">
                 {{ media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: media.alt }}
               </button>
             {% endfor %}
@@ -147,8 +147,12 @@
     padding: 0;
   }
 
-  .gc-main-product__thumbs button:first-child {
+  .gc-main-product__thumbs button.is-active {
     border: 2px solid var(--gc-primary);
+  }
+
+  .gc-main-product__thumbs button {
+    cursor: pointer;
   }
 
   .gc-main-product__thumbs img {
@@ -345,6 +349,19 @@
 
 {% javascript %}
   document.addEventListener('click', (event) => {
+    const thumb = event.target.closest('.gc-main-product__thumb');
+    if (thumb && thumb.dataset.imageUrl) {
+      const media = thumb.closest('.gc-main-product__media');
+      const mainImage = media ? media.querySelector('.gc-main-product__main-image') : null;
+      if (mainImage) {
+        mainImage.src = thumb.dataset.imageUrl;
+        mainImage.removeAttribute('srcset');
+        media.querySelectorAll('.gc-main-product__thumb').forEach((t) => t.classList.remove('is-active'));
+        thumb.classList.add('is-active');
+      }
+      return;
+    }
+
     const button = event.target.closest('[data-quantity-step]');
     if (!button) return;
 
