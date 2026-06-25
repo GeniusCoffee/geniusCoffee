@@ -6,8 +6,18 @@
       "shop": "Shop",
       "order_now": "Order Now",
       "open_menu": "Open menu",
-      "legal": "Legal navigation"
+      "legal": "Legal navigation",
+      "cart": "Bag"
     }
+  },
+  "cart": {
+    "empty": "Your bag is empty.",
+    "continue_shopping": "Continue Shopping",
+    "quantity": "Quantity",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "update": "Update",
+    "checkout": "Checkout"
   },
   "newsletter": {
     "email": "Email address",

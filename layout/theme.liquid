@@ -206,7 +206,40 @@
 
       .gc-header-actions {
         display: flex;
+        align-items: center;
         justify-content: flex-end;
+        gap: 20px;
+      }
+
+      .gc-header-cart {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        color: var(--gc-ink);
+      }
+
+      .gc-cart-icon {
+        width: 22px;
+        height: 22px;
+      }
+
+      .gc-header-cart__count {
+        position: absolute;
+        top: -6px;
+        right: -8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 4px;
+        border-radius: 999px;
+        background: var(--gc-primary);
+        color: var(--gc-cream);
+        font-family: var(--gc-display);
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1;
       }
 
       .gc-menu-toggle {
@@ -312,6 +345,14 @@
           <a href="{{ routes.all_products_collection_url }}" {% if template.name == 'collection' %}aria-current="page"{% endif %}>{{ 'general.navigation.shop' | t }}</a>
         </nav>
         <div class="gc-header-actions">
+          <a class="gc-header-cart" href="{{ routes.cart_url }}" aria-label="{{ 'general.navigation.cart' | t }}{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}">
+            <svg class="gc-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <circle cx="9" cy="20" r="1.4"/>
+              <circle cx="18" cy="20" r="1.4"/>
+              <path d="M2 3h2.2l2.3 12.2a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 7H5.2"/>
+            </svg>
+            {% if cart.item_count > 0 %}<span class="gc-header-cart__count">{{ cart.item_count }}</span>{% endif %}
+          </a>
           <a class="gc-button" href="{{ routes.all_products_collection_url }}">
             {{ 'general.navigation.order_now' | t }}
             {% render 'gc-arrow-icon' %}

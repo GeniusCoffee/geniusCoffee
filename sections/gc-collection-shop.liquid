@@ -14,15 +14,12 @@
   </div>
 </section>
 
-{% comment %} ponytail: bucketed by product.type; rename the type strings here if your taxonomy differs {% endcomment %}
-{% assign coffee_products = collection.products | where: 'type', 'Coffee' %}
-{% render 'gc-shop-category', id: 'coffee', heading: section.settings.coffee_heading, copy: section.settings.coffee_copy, label: 'Coffee', products: coffee_products, demo: true %}
+{% comment %} ponytail: bucketed by product.type, case-insensitive; rename the match strings if your taxonomy differs {% endcomment %}
+{% render 'gc-shop-category', id: 'coffee', heading: section.settings.coffee_heading, copy: section.settings.coffee_copy, label: 'Coffee', match_type: 'coffee', collection: collection %}
 
-{% assign apparel_products = collection.products | where: 'type', 'Apparel' %}
-{% render 'gc-shop-category', id: 'apparel', heading: section.settings.apparel_heading, copy: section.settings.apparel_copy, label: 'Apparel', products: apparel_products %}
+{% render 'gc-shop-category', id: 'apparel', heading: section.settings.apparel_heading, copy: section.settings.apparel_copy, label: 'Apparel', match_type: 'apparel', collection: collection %}
 
-{% assign lifestyle_products = collection.products | where: 'type', 'Lifestyle' %}
-{% render 'gc-shop-category', id: 'lifestyle', heading: section.settings.lifestyle_heading, copy: section.settings.lifestyle_copy, label: 'Lifestyle', products: lifestyle_products %}
+{% render 'gc-shop-category', id: 'lifestyle', heading: section.settings.lifestyle_heading, copy: section.settings.lifestyle_copy, label: 'Lifestyle', match_type: 'lifestyle', collection: collection %}
 
 <section class="gc-quiz-cta">
   <div class="gc-container">
