@@ -7,7 +7,8 @@
       "order_now": "Order Now",
       "open_menu": "Open menu",
       "legal": "Legal navigation",
-      "cart": "Bag"
+      "cart": "Bag",
+      "account": "Account"
     }
   },
   "cart": {
@@ -49,7 +50,9 @@
       "elevation": "Elevation",
       "tasting_notes": "Tasting Notes",
       "roast_level": "Roast Level",
-      "weight": "Weight"
+      "weight": "Weight",
+      "materials_care": "Materials & Care",
+      "size_fit": "Size & Fit"
     }
   }
 }

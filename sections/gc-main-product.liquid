@@ -28,9 +28,9 @@
       </div>
 
       <div class="gc-main-product__details">
-        {% assign product_badge = product.tags.first | default: section.settings.badge %}
-        {% if product_badge != blank %}
-          <p class="gc-main-product__badge">{{ product_badge }}</p>
+        {%- comment -%} ponytail: badge from the product's own first tag only; section-setting badge is a global demo default, not per-product data {%- endcomment -%}
+        {% if product.tags.first != blank %}
+          <p class="gc-main-product__badge">{{ product.tags.first }}</p>
         {% endif %}
         <h1 class="gc-display">{{ product.title | default: section.settings.fallback_title }}</h1>
         <p class="gc-main-product__origin">{{ product.vendor | default: section.settings.fallback_origin }}</p>
@@ -60,36 +60,39 @@
           </button>
         {% endform %}
 
-        <div class="gc-main-product__meta">
-          <h2>{{ 'products.product.product_details' | t }}</h2>
-          {%- comment -%} ponytail: metafield overrides section setting; section setting stays as fallback {%- endcomment -%}
-          <dl>
-            <div>
-              <dt>{{ 'products.product.origin' | t }}</dt>
-              <dd>{{ product.metafields.custom.origin.value | default: product.vendor | default: section.settings.fallback_origin }}</dd>
-            </div>
-            <div>
-              <dt>{{ 'products.product.process' | t }}</dt>
-              <dd>{{ product.metafields.custom.process.value | default: section.settings.process }}</dd>
-            </div>
-            <div>
-              <dt>{{ 'products.product.elevation' | t }}</dt>
-              <dd>{{ product.metafields.custom.elevation.value | default: section.settings.elevation }}</dd>
-            </div>
-            <div>
-              <dt>{{ 'products.product.tasting_notes' | t }}</dt>
-              <dd>{{ product.metafields.custom.tasting_notes.value | default: section.settings.notes }}</dd>
-            </div>
-            <div>
-              <dt>{{ 'products.product.roast_level' | t }}</dt>
-              <dd>{{ product.metafields.custom.roast_level.value | default: product.title | default: section.settings.fallback_title }}</dd>
-            </div>
-            <div>
-              <dt>{{ 'products.product.weight' | t }}</dt>
-              <dd>{{ product.metafields.custom.weight.value | default: section.settings.weight }}</dd>
-            </div>
-          </dl>
-        </div>
+        {%- capture meta_rows -%}
+          {%- comment -%} ponytail: row shows only when its own metafield has a value; section-setting defaults are global demo fallbacks, not per-product data {%- endcomment -%}
+          {%- if product.metafields.custom.origin.value != blank -%}
+            <div><dt>{{ 'products.product.origin' | t }}</dt><dd>{{ product.metafields.custom.origin.value }}</dd></div>
+          {%- endif -%}
+          {%- if product.metafields.custom.process.value != blank -%}
+            <div><dt>{{ 'products.product.process' | t }}</dt><dd>{{ product.metafields.custom.process.value }}</dd></div>
+          {%- endif -%}
+          {%- if product.metafields.custom.elevation.value != blank -%}
+            <div><dt>{{ 'products.product.elevation' | t }}</dt><dd>{{ product.metafields.custom.elevation.value }}</dd></div>
+          {%- endif -%}
+          {%- if product.metafields.custom.tasting_notes.value != blank -%}
+            <div><dt>{{ 'products.product.tasting_notes' | t }}</dt><dd>{{ product.metafields.custom.tasting_notes.value }}</dd></div>
+          {%- endif -%}
+          {%- if product.metafields.custom.roast_level.value != blank -%}
+            <div><dt>{{ 'products.product.roast_level' | t }}</dt><dd>{{ product.metafields.custom.roast_level.value }}</dd></div>
+          {%- endif -%}
+          {%- if product.metafields.custom.weight.value != blank -%}
+            <div><dt>{{ 'products.product.weight' | t }}</dt><dd>{{ product.metafields.custom.weight.value }}</dd></div>
+          {%- endif -%}
+          {%- if product.metafields.custom.materials_care.value != blank -%}
+            <div><dt>{{ 'products.product.materials_care' | t }}</dt><dd>{{ product.metafields.custom.materials_care.value }}</dd></div>
+          {%- endif -%}
+          {%- if product.metafields.custom.size_fit.value != blank -%}
+            <div><dt>{{ 'products.product.size_fit' | t }}</dt><dd>{{ product.metafields.custom.size_fit.value }}</dd></div>
+          {%- endif -%}
+        {%- endcapture -%}
+        {%- if meta_rows != blank -%}
+          <div class="gc-main-product__meta">
+            <h2>{{ 'products.product.product_details' | t }}</h2>
+            <dl>{{ meta_rows }}</dl>
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </div>
