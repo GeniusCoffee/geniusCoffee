@@ -211,14 +211,16 @@
         gap: 20px;
       }
 
-      .gc-header-cart {
+      .gc-header-cart,
+      .gc-header-account {
         position: relative;
         display: inline-flex;
         align-items: center;
         color: var(--gc-ink);
       }
 
-      .gc-cart-icon {
+      .gc-cart-icon,
+      .gc-account-icon {
         width: 22px;
         height: 22px;
       }
@@ -345,6 +347,12 @@
           <a href="{{ routes.all_products_collection_url }}" {% if template.name == 'collection' %}aria-current="page"{% endif %}>{{ 'general.navigation.shop' | t }}</a>
         </nav>
         <div class="gc-header-actions">
+          <a class="gc-header-account" href="{{ routes.account_url }}" aria-label="{{ 'general.navigation.account' | t }}">
+            <svg class="gc-account-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/>
+            </svg>
+          </a>
           <a class="gc-header-cart" href="{{ routes.cart_url }}" aria-label="{{ 'general.navigation.cart' | t }}{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}">
             <svg class="gc-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
               <circle cx="9" cy="20" r="1.4"/>
