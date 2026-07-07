@@ -12,6 +12,9 @@
     "main": {
       "type": "gc-collection-shop",
       "settings": {
+        "image": "shopify://shop_images/PXL_20260522_145051236.jpg",
+        "image_opacity": 35,
+        "overlay_opacity": 55,
         "eyebrow": "Small-Batch - Roasted to Order - Free UK Shipping Over GBP 30",
         "heading": "The",
         "highlight": "Shop.",
