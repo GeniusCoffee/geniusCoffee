@@ -30,7 +30,7 @@
       <p>{{ section.settings.quiz_eyebrow }}</p>
       <h2>{{ section.settings.quiz_heading }}</h2>
     </div>
-    <a class="gc-button gc-button--green" href="{{ section.settings.quiz_link | default: '/pages/quiz' }}">
+    <a class="gc-button gc-button--green" href="{{ section.settings.quiz_link | default: '/pages/quiz' }}" target="_blank" rel="noopener">
       {{ section.settings.quiz_button }}
       {% render 'gc-arrow-icon' %}
     </a>
