@@ -1,4 +1,4 @@
-<section class="gc-hero{% if section.settings.image != blank %} gc-hero--has-image{% endif %}" style="--hero-opacity: {{ section.settings.image_opacity | divided_by: 100.0 }};">
+<section class="gc-hero{% if section.settings.image != blank %} gc-hero--has-image{% endif %}" style="--hero-opacity: {{ section.settings.image_opacity | divided_by: 100.0 }}; --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};">
   {% if section.settings.image != blank %}
     {{ section.settings.image | image_url: width: 2400 | image_tag: class: 'gc-hero__image', loading: 'eager', alt: section.settings.heading }}
   {% endif %}
@@ -32,7 +32,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(245, 240, 232, 0.54);
+    background: rgba(245, 240, 232, var(--overlay-opacity));
   }
 
   .gc-container.gc-hero__inner {
@@ -72,6 +72,7 @@
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Background image" },
     { "type": "range", "id": "image_opacity", "label": "Image opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 35 },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 55 },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Small-Batch · London Roastery · Est. 2024" },
     { "type": "text", "id": "heading", "label": "Heading before highlight", "default": "Think" },
     { "type": "text", "id": "highlight", "label": "Highlighted heading", "default": "Better." },
