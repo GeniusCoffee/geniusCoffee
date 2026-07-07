@@ -1,12 +1,49 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "gc-collection-shop",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Small-Batch - Roasted to Order - Free UK Shipping Over GBP 30",
+        "heading": "The",
+        "highlight": "Shop.",
+        "copy": "Every bag roasted fresh to order. Dispatched within 48 hours. Choose your roast, your grind, your cadence.",
+        "coffee_tab": "Coffee",
+        "coffee_heading": "Coffee",
+        "coffee_copy": "Single origin. Always fresh.",
+        "apparel_tab": "Apparel",
+        "apparel_heading": "Apparel",
+        "apparel_copy": "Wear it well.",
+        "lifestyle_tab": "Lifestyle",
+        "lifestyle_heading": "Lifestyle",
+        "lifestyle_copy": "The full ritual.",
+        "fallback_process": "Washed",
+        "fallback_weight": "250g",
+        "fallback_elevation": "1,600-1,900m",
+        "quiz_eyebrow": "Questions?",
+        "quiz_heading": "Not sure which roast is right for you?",
+        "quiz_button": "Take the quiz",
+        "quiz_link": "https://form.typeform.com/to/ESwAvegC"
+      }
     },
     "footer": {
       "type": "gc-footer",
-      "settings": {}
+      "settings": {
+        "about": "Small-batch specialty coffee, roasted in London. Direct trade. Always fresh.",
+        "shop_heading": "Shop",
+        "shop_menu": "",
+        "help_heading": "Help",
+        "help_menu": "",
+        "copyright": "© 2024 Genius Coffee Ltd. All rights reserved. Registered in England & Wales."
+      }
     }
   },
   "order": [
