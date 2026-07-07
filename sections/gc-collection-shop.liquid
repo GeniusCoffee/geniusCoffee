@@ -1,4 +1,7 @@
-<section class="gc-shop-hero">
+<section class="gc-shop-hero{% if section.settings.image != blank %} gc-shop-hero--has-image{% endif %}" style="--hero-opacity: {{ section.settings.image_opacity | divided_by: 100.0 }}; --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};">
+  {% if section.settings.image != blank %}
+    {{ section.settings.image | image_url: width: 2400 | image_tag: class: 'gc-shop-hero__image', loading: 'eager', alt: section.settings.heading }}
+  {% endif %}
   <div class="gc-container">
     <p class="gc-eyebrow">{{ section.settings.eyebrow }}</p>
     <h1 class="gc-display">{{ section.settings.heading }} <strong>{{ section.settings.highlight }}</strong></h1>
@@ -36,12 +39,35 @@
 
 {% stylesheet %}
   .gc-shop-hero {
+    position: relative;
+    overflow: hidden;
     background: var(--gc-ink);
     color: var(--gc-cream);
     min-height: min(757px, 72svh);
     display: flex;
     align-items: flex-end;
     padding: 144px 0 56px;
+  }
+
+  .gc-shop-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: var(--hero-opacity);
+  }
+
+  .gc-shop-hero--has-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 13, 11, var(--overlay-opacity));
+  }
+
+  .gc-shop-hero > .gc-container {
+    position: relative;
+    z-index: 1;
   }
 
   .gc-shop-hero .gc-display {
@@ -331,6 +357,9 @@
 {
   "name": "Genius shop collection",
   "settings": [
+    { "type": "image_picker", "id": "image", "label": "Hero background image" },
+    { "type": "range", "id": "image_opacity", "label": "Image opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 35 },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 55 },
     { "type": "text", "id": "eyebrow", "label": "Hero eyebrow", "default": "Small-Batch - Roasted to Order - Free UK Shipping Over GBP 30" },
     { "type": "text", "id": "heading", "label": "Hero heading", "default": "The" },
     { "type": "text", "id": "highlight", "label": "Hero highlight", "default": "Shop." },
