@@ -5,7 +5,7 @@
         {% render 'genius-logo' %}
         <p class="gc-footer__about">{{ section.settings.about }}</p>
       </div>
-      <div>
+      <div class="gc-footer__shop">
         <h2><a href="{{ routes.all_products_collection_url }}">{{ section.settings.shop_heading }}</a></h2>
         {% if section.settings.shop_menu != blank %}
           <ul>
@@ -21,7 +21,7 @@
           </ul>
         {% endif %}
       </div>
-      <div>
+      <div class="gc-footer__help">
         <h2><a href="/pages/help">{{ section.settings.help_heading }}</a></h2>
         {% if section.settings.help_menu != blank %}
           <ul>
@@ -90,6 +90,18 @@
 
   .gc-footer a {
     font-size: 14px;
+  }
+
+  .gc-footer__help h2,
+  .gc-footer__help h2 a,
+  .gc-footer__shop h2,
+  .gc-footer__shop h2 a {
+    color: var(--gc-ink);
+  }
+
+  .gc-footer__help ul a,
+  .gc-footer__shop ul a {
+    color: var(--gc-primary);
   }
 
   .gc-footer__bottom {
