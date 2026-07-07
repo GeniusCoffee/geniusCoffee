@@ -12,7 +12,9 @@
     "hero": {
       "type": "gc-home-hero",
       "settings": {
+        "image": "shopify://shop_images/PXL_20260522_145051236.jpg",
         "image_opacity": 35,
+        "overlay_opacity": 55,
         "eyebrow": "Small-Batch · London Roastery · Est. 2024",
         "heading": "Think",
         "highlight": "Better.",
