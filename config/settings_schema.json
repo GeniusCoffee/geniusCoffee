@@ -13,6 +13,12 @@
       {
         "type": "header",
         "content": "Genius Coffee"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "Will be scaled down to 32 x 32px"
       }
     ]
   }
