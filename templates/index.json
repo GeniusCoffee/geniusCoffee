@@ -97,6 +97,8 @@
         "heading": "Coffee roasted",
         "highlight": "smarter.",
         "copy": "<p>Genius Coffee was founded with one question: what if every decision in the supply chain was better? From sourcing to roasting to dispatch, we optimise for transparency, quality, and consistency.</p><p>We source exclusively from farms we visit. We roast in small batches and ship fresh to order.</p>",
+        "image": "shopify://shop_images/roaster_team.jpg",
+        "image_opacity": 100,
         "stat_value": "100%",
         "stat_label": "Direct Trade",
         "button_label": "Read More",
