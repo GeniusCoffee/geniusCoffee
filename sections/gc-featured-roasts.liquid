@@ -25,7 +25,7 @@
             {% if product.featured_image != blank %}
               {{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: product.title, class: 'gc-shop-tile__image-primary' }}
               {% if product.images.size > 1 %}
-                {{ product.images[1] | image_url: width: 800 | image_tag: loading: 'lazy', alt: product.title, class: 'gc-shop-tile__image-secondary' }}
+                {{ product.images[1] | image_url: width: 800 | image_tag: loading: 'lazy', alt: '', class: 'gc-shop-tile__image-secondary' }}
               {% endif %}
             {% else %}
               <span>Coffee</span>
@@ -72,51 +72,10 @@
     text-transform: uppercase;
   }
 
+  /* Grid layout only; card styling (.gc-shop-tile) is shared from sections/gc-collection-shop.liquid. */
   .gc-roasts__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  /* Reuse shop-page tiles (.gc-shop-tile, styled globally); card ends at the image, no chin. */
-  .gc-roasts__grid .gc-shop-tile {
-    min-height: 0;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    height: 500px;
-  }
-
-  .gc-roasts__grid .gc-shop-tile__image {
-    flex: 1;
-    min-height: 0;
-  }
-
-  .gc-roasts__grid .gc-shop-tile__head {
-    align-items: center;
-  }
-
-  .gc-roasts__grid .gc-shop-tile__head span {
-    display: block;
-    min-width: 0;
-  }
-
-  .gc-roasts__grid .gc-shop-tile__head strong {
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-weight: 300;
-    font-size: 20px;
-  }
-
-  .gc-roasts__grid .gc-shop-tile__head b {
-    align-self: stretch;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    color: var(--gc-forest);
-    font-weight: 400;
-    font-size: 20px;
   }
 
   .gc-roasts__empty {
@@ -131,15 +90,6 @@
   @media (max-width: 980px) {
     .gc-roasts__grid {
       grid-template-columns: minmax(0, 1fr);
-    }
-
-    .gc-roasts__grid .gc-shop-tile {
-      height: auto;
-    }
-
-    .gc-roasts__grid .gc-shop-tile__image {
-      flex: none;
-      aspect-ratio: 1;
     }
   }
 
