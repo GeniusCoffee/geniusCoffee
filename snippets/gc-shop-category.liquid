@@ -16,29 +16,24 @@
         {% if ptype != type_match %}{% continue %}{% endif %}
         {% if shown >= 12 %}{% break %}{% endif %}
         {% assign shown = shown | plus: 1 %}
-        {% liquid
-          assign selected_variant = product.selected_or_first_available_variant
-          assign product_notes = product.description | strip_html | truncate: 42
-        %}
+        {% assign selected_variant = product.selected_or_first_available_variant %}
         <article class="gc-shop-tile">
           <a class="gc-shop-tile__head" href="{{ product.url }}">
             <span>
               <strong>{{ product.title }}</strong>
-              <small>{{ product.vendor }}</small>
             </span>
             <b>{{ selected_variant.price | money_without_trailing_zeros }}</b>
           </a>
           <a class="gc-shop-tile__image" href="{{ product.url }}">
             {% if product.featured_image != blank %}
-              {{ product.featured_image | image_url: width: 720 | image_tag: loading: 'lazy', alt: product.title, class: 'gc-shop-tile__image-primary' }}
+              {{ product.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', alt: product.title, class: 'gc-shop-tile__image-primary' }}
               {% if product.images.size > 1 %}
-                {{ product.images[1] | image_url: width: 720 | image_tag: loading: 'lazy', alt: product.title, class: 'gc-shop-tile__image-secondary' }}
+                {{ product.images[1] | image_url: width: 800 | image_tag: loading: 'lazy', alt: '', class: 'gc-shop-tile__image-secondary' }}
               {% endif %}
             {% else %}
               <span>{{ label }}</span>
             {% endif %}
           </a>
-          <p>{{ product_notes }}</p>
         </article>
       {% endfor %}
       {% if shown == 0 %}
