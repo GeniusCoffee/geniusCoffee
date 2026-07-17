@@ -11,7 +11,6 @@
   "sections": {
     "main": {
       "type": "gc-help",
-      "settings": {},
       "blocks": {
         "faq_shipping": {
           "type": "faq",
@@ -35,11 +34,30 @@
           }
         }
       },
-      "block_order": ["faq_shipping", "faq_grind", "faq_storage"]
+      "block_order": [
+        "faq_shipping",
+        "faq_grind",
+        "faq_storage"
+      ],
+      "settings": {
+        "eyebrow": "Genius Coffee",
+        "heading": "Help",
+        "returns_heading": "Returns & Cancellations",
+        "returns_copy": "<p>We carefully roast, pack and check every order before it leaves us. If something is not right, please contact us and we will do our best to resolve it quickly and fairly.<br/><br/>Coffee returns<br/><br/>Coffee is a freshly roasted, perishable food product. For food safety and quality reasons, we cannot accept returns if you change your mind or the flavour does not suit your personal taste. However, in cases where quality standards are not  met please contact us and we will find a solution for you.<br/><br/>If you are unsure which coffee to choose, please take our quick coffee quiz or contact us before placing your order. We’ll be happy to answer your questions and help you choose the right coffee and grind size for your taste and brewing method.<br/><br/>Coffee ground to your chosen specification cannot be exchanged or refunded if the wrong grind size was selected. Please check your coffee, bag size and grind option carefully before completing your order.<br/><br/>This does not affect your legal rights if your coffee arrives damaged, faulty, incorrectly supplied or not as described.<br/><br/>Damaged, faulty or incorrect orders<br/><br/>If your order arrives damaged, faulty or incorrect, please contact us as soon as possible. <br/><br/>Please keep the product and all original packaging until we have reviewed the issue. Depending on the circumstances, we may offer a replacement, refund or another suitable solution.<br/><br/>Returns of equipment and accessories<br/><br/>Unused, non-perishable items may be returned within 14 days of delivery. Please contact us within this period and return the item within a further 14 days.<br/><br/>Returned items must be unused, complete and in their original packaging. All accessories, instructions and labels must also be included. We may reduce the refund if an item has been used or handled beyond what is reasonably necessary to inspect it.<br/><br/>Unless the item is faulty, damaged or incorrectly supplied, you will be responsible for the return postage. We recommend using a tracked delivery service, as the returned item remains your responsibility until it reaches us.<br/><br/>Please contact us before returning anything so we can provide the correct return instructions. Returns sent without contacting us first may take longer to process.<br/><br/>Items that cannot be returned<br/><br/>Unless faulty, damaged or incorrectly supplied, we cannot accept returns of:<br/><br/>Opened or used coffee<br/>Coffee ground to your chosen specification<br/>Perishable food or drink products<br/>Opened products where hygiene or food safety may be affected<br/>Gift cards<br/>Personalised or specially prepared items<br/><br/>Refunds<br/><br/>Once we receive and inspect an eligible return, we will let you know whether your refund has been approved.<br/><br/>Approved refunds will be issued to the original payment method. Please allow several working days for the payment to appear, depending on your bank or payment provider.<br/><br/>Original standard delivery charges will be refunded where required by law. Any additional cost paid for express or upgraded delivery will not normally be refunded.<br/><br/>Incorrect or incomplete delivery addresses<br/><br/>Please check your delivery details carefully before completing your order. Customers are responsible for providing a complete and accurate delivery address.<br/><br/>If an order is returned to us because the address provided was incorrect or incomplete, we may deduct the original delivery charge and any return costs from the refund.<br/><br/>Fresh coffee that cannot safely or reasonably be resold may not be eligible for a refund.<br/><br/>Changing or cancelling an order<br/><br/>If you need to change or cancel your order, please contact us immediately. We will always try to help, but we cannot guarantee changes or cancellations once an order has been roasted, ground, packed or passed to the delivery company.<br/><br/>Your statutory rights<br/><br/>Nothing in this policy limits or affects your statutory rights under UK consumer law.<br/><br/>Contact us<br/><br/>To request a return, report a problem or ask a question, please contact us through our website and include your order number where applicable.<br/></p>",
+        "faq_heading": "Frequently Asked Questions",
+        "faq_copy": "<p>Coming soon.</p>"
+      }
     },
     "footer": {
       "type": "gc-footer",
-      "settings": {}
+      "settings": {
+        "about": "Small-batch specialty coffee, roasted in London. Direct trade. Always fresh.",
+        "shop_heading": "Shop",
+        "shop_menu": "",
+        "help_heading": "Help",
+        "help_menu": "",
+        "copyright": "© 2024 Genius Coffee Ltd. All rights reserved. Registered in England & Wales."
+      }
     }
   },
   "order": [
