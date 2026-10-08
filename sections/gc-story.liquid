@@ -7,9 +7,12 @@
     </div>
     <div class="gc-story__media" style="--story-image-opacity: {{ section.settings.image_opacity | divided_by: 100.0 }};">
       <div class="gc-story__placeholder"></div>
-      {% if section.settings.image != blank %}
-        {{ section.settings.image | image_url: width: 1000 | image_tag: class: 'gc-story__image', loading: 'lazy', alt: section.settings.heading }}
-      {% endif %}
+{% if section.settings.video != blank %}
+  {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, class: 'gc-story__image' }}
+{% elsif section.settings.image != blank %}
+  {{ section.settings.image | image_url: width: 1000 | image_tag: class: 'gc-story__image', loading: 'lazy' }}
+{% endif %}
+
       <div class="gc-story__stat">
         <strong>{{ section.settings.stat_value }}</strong>
         <span>{{ section.settings.stat_label }}</span>
