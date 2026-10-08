@@ -1,5 +1,16 @@
 <section class="gc-hero{% if section.settings.image != blank %} gc-hero--has-image{% endif %}" style="--hero-opacity: {{ section.settings.image_opacity | divided_by: 100.0 }}; --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};">
-  {% if section.settings.image != blank %}
+{% if section.settings.video != blank %}
+  {{ section.settings.video | video_tag:
+    autoplay: true,
+    loop: true,
+    muted: true,
+    controls: false,
+    playsinline: true,
+    class: 'gc-hero__video'
+  }}
+{% endif %}
+
+{% if section.settings.video == blank and section.settings.image != blank %}
     {{ section.settings.image | image_url: width: 2400 | image_tag: class: 'gc-hero__image', loading: 'eager', alt: section.settings.heading }}
   {% endif %}
   <div class="gc-container gc-hero__inner">
@@ -27,6 +38,15 @@
     object-fit: cover;
     opacity: var(--hero-opacity);
   }
+.gc-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: var(--hero-opacity);
+  pointer-events: none;
+}
 
   .gc-hero::after {
     content: "";
@@ -70,6 +90,7 @@
 {
   "name": "Genius hero",
   "settings": [
+{ "type": "video", "id": "video", "label": "Background video" },
     { "type": "image_picker", "id": "image", "label": "Background image" },
     { "type": "range", "id": "image_opacity", "label": "Image opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 35 },
     { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 55 },
