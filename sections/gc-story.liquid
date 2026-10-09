@@ -119,6 +119,18 @@ aspect-ratio: 3 / 2;
   object-fit: cover;
   display: block;
 }
+@media (max-width: 760px) {
+  .gc-story__stat {
+    min-width: 90px;
+    padding: 10px;
+    bottom: -12px;
+    left: -12px;
+  }
+
+  .gc-story__stat strong {
+    font-size: 22px;
+  }
+}
 {% endstylesheet %}
 
 {% schema %}
