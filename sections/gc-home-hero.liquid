@@ -6,7 +6,17 @@
     muted: true,
     controls: false,
     playsinline: true,
-    class: 'gc-hero__video'
+    class: 'gc-hero__video gc-hero__video--desktop'
+  }}
+{% endif %}
+{% if section.settings.mobile_video != blank %}
+  {{ section.settings.mobile_video | video_tag:
+    autoplay: true,
+    loop: true,
+    muted: true,
+    controls: false,
+    playsinline: true,
+    class: 'gc-hero__video gc-hero__video--mobile'
   }}
 {% endif %}
 
@@ -96,6 +106,26 @@ font-size: clamp(28px, 7vw, 48px);
     font-size: 12px !important;
     letter-spacing: 0.08em;
     line-height: 1.4;
+  }
+}
+/* Hide mobile video on laptop */
+.gc-hero__video--mobile {
+  display: none;
+}
+
+/* Show mobile video on phones */
+@media (max-width: 760px) {
+  .gc-hero__video--desktop {
+    display: none;
+  }
+
+  .gc-hero__video--mobile {
+    display: block;
+  }
+
+  /* Use desktop video if no mobile video is uploaded */
+.gc-hero__video--desktop:not(:has(+ .gc-hero__video--mobile)) {
+    display: block;
   }
 }
 {% endstylesheet %}
