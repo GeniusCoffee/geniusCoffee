@@ -346,7 +346,6 @@
       <div class="gc-container gc-site-header__inner">
         {% render 'genius-logo' %}
         <nav class="gc-nav" aria-label="{{ 'general.navigation.main' | t }}">
-          <a href="{{ routes.all_products_collection_url }}">{{ 'general.navigation.roasts' | t }}</a>
           <a href="{{ routes.all_products_collection_url }}" {% if template.name == 'collection' %}aria-current="page"{% endif %}>{{ 'general.navigation.shop' | t }}</a>
         </nav>
         <div class="gc-header-actions">
