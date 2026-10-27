@@ -86,9 +86,9 @@
         "darker-roast"
       ],
       "settings": {
-        "eyebrow": "Current Offerings",
+        "eyebrow": "Discover our selection of speciality coffee",
         "heading": "THE SHOP",
-        "link_label": "View All",
+        "link_label": "Explore Our Coffee",
         "link_url": "shopify://collections/all"
       }
     },
