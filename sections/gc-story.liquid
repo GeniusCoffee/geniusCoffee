@@ -85,19 +85,15 @@ aspect-ratio: 16 / 9;
     padding: 16px;
   }
 
-  .gc-story__stat strong {
-    font-family: var(--gc-display);
-    font-size: 22px;
-    line-height: 1;
-  }
-
-  .gc-story__stat span {
-    font-family: var(--gc-display);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-
+  .gc-story__stat strong,
+.gc-story__stat span {
+  font-family: var(--gc-display);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
   @media (max-width: 900px) {
     .gc-story__grid {
       grid-template-columns: 1fr;
