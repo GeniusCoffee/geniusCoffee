@@ -94,6 +94,9 @@
     },
     "story": {
       "type": "gc-story",
+      "custom_css": [
+        ".gc-story__stat {display: none !important;}"
+      ],
       "settings": {
         "eyebrow": "Our Story",
         "heading": "When the world",
@@ -101,8 +104,8 @@
         "copy": "<p>Our story began in 2020, when we opened our coffee shop in Colliers Wood. After tasting coffees from different roasters, we wanted to create a flavour of our own. So we learned to roast by experimenting, tasting and adjusting. Over the years, we discovered how much roasting can shape a coffee — bringing out the sweetness, body and character we love. Today, we roast coffee the way we see it, and the way we love to drink it.</p>",
         "video": "shopify://files/videos/1000116298.mp4",
         "image_opacity": 100,
-        "stat_value": "100%",
-        "stat_label": "Direct Trade",
+        "stat_value": "",
+        "stat_label": "",
         "button_label": "Read More",
         "button_link": ""
       }
