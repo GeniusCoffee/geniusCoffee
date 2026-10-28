@@ -116,7 +116,7 @@
           "settings": {
             "number": "01",
             "heading": "Source",
-            "copy": "We build direct relationships with farmers across Ethiopia, Colombia, and Indonesia, paying above Fairtrade for exceptional lots."
+            "copy": "We source coffees from around the world, then get to know each coffee’s character and develop a roast profile to suit it."
           }
         },
         "roast": {
@@ -124,7 +124,7 @@
           "settings": {
             "number": "02",
             "heading": "Roast",
-            "copy": "Every batch is roasted in small 3kg drums at our London roastery."
+            "copy": "We roast each coffee in small batches at our London micro-roastery, then taste it to make sure the roast is right."
           }
         },
         "ship": {
@@ -132,7 +132,7 @@
           "settings": {
             "number": "03",
             "heading": "Ship",
-            "copy": "Orders roasted fresh to order, dispatched within 48 hours."
+            "copy": "We roast your coffee fresh and aim to dispatch within 48 hours, depending on when your order is placed."
           }
         }
       },
